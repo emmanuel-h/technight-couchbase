@@ -26,7 +26,10 @@ public class ActorController {
     }
 
     @GetMapping("/designation")
-    public String actorDesignation(@RequestParam("singular") boolean singular) {
+    public String actorDesignation(@RequestParam(value = "singular", required = false) Boolean singular) {
+        if (singular == null) {
+            singular = Math.random() < 0.5;
+        }
         return actorService.getActorDesignation(singular);
     }
 
@@ -37,9 +40,9 @@ public class ActorController {
                 .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Actor> save(@RequestParam("actor") String actor, @RequestParam("singular") boolean singular) throws URISyntaxException {
-        Actor actorSaved = actorService.save(actor, singular);
+    @PostMapping
+    public ResponseEntity<Actor> save(@RequestBody Actor actor) throws URISyntaxException {
+        Actor actorSaved = actorService.save(actor);
         String uriString = ACTOR + "/" + actorSaved.getId();
         URI uri = new URI(uriString);
         return ResponseEntity.created(uri).body(actorSaved);

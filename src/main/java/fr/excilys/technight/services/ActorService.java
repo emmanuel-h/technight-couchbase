@@ -11,7 +11,7 @@ public interface ActorService {
 
     List<Actor> getActorsBySingular(boolean singular);
 
-    Actor save(String actorName, boolean singular);
+    Actor save(Actor actor);
 
     String getActorDesignation(boolean singular);
 }

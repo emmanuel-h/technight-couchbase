@@ -30,11 +30,8 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public Actor save(String actorName, boolean singular) {
-        Actor actor = new Actor();
+    public Actor save(Actor actor) {
         actor.setId(UUID.randomUUID().toString());
-        actor.setSingular(singular);
-        actor.setDesignation(actorName);
         return actorRepository.save(actor);
     }
 
@@ -43,7 +40,6 @@ public class ActorServiceImpl implements ActorService {
         List<Actor> actors = getActorsBySingular(singular);
         Random rand = new Random();
         String designation = actors.get(rand.nextInt(actors.size())).getDesignation();
-        System.out.println(designation);
         return designation;
     }
 }
