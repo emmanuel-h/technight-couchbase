@@ -25,6 +25,11 @@ public class ActorController {
         return actorService.getActorsBySingular(singular);
     }
 
+    @GetMapping("/designation")
+    public String actorDesignation(@RequestParam("singular") boolean singular) {
+        return actorService.getActorDesignation(singular);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Actor> getById(@PathVariable("id") String id) {
         return actorService.getActor(id)

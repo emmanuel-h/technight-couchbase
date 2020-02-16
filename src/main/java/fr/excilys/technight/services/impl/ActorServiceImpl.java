@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -35,5 +36,14 @@ public class ActorServiceImpl implements ActorService {
         actor.setSingular(singular);
         actor.setDesignation(actorName);
         return actorRepository.save(actor);
+    }
+
+    @Override
+    public String getActorDesignation(boolean singular) {
+        List<Actor> actors = getActorsBySingular(singular);
+        Random rand = new Random();
+        String designation = actors.get(rand.nextInt(actors.size())).getDesignation();
+        System.out.println(designation);
+        return designation;
     }
 }
